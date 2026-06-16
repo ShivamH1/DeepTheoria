@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+sse-starlette
+pydantic-settings
+langgraph
+langchain-core
+langchain-mistralai
+aiosqlite
+tavily-python
+beautifulsoup4
+lxml
+requests
+python-dotenv
