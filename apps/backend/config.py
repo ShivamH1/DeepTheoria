@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     MISTRAL_API_KEY: str
     MISTRAL_MODEL: str
     TAVILY_API_KEY: str
+    DATABASE_URL: str
 
     model_config = SettingsConfigDict(
         env_file=find_dotenv() or ".env", env_file_encoding="utf-8", extra="ignore"

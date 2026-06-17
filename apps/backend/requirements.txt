@@ -5,7 +5,7 @@ pydantic-settings
 langgraph
 langchain-core
 langchain-mistralai
-aiosqlite
+asyncpg
 tavily-python
 beautifulsoup4
 lxml
