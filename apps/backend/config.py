@@ -6,6 +6,7 @@ load_dotenv(find_dotenv())
 
 class Settings(BaseSettings):
     MISTRAL_API_KEY: str
+    MISTRAL_MODEL: str
     TAVILY_API_KEY: str
 
     model_config = SettingsConfigDict(
