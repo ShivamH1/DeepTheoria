@@ -1,0 +1,10 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": ".venv/Scripts/uvicorn main:app --reload --port 8000",
+    "build": "echo \"No build step required for Python backend\"",
+    "lint": "echo \"Optional: run python linter like ruff or pylint here\""
+  }
+}
