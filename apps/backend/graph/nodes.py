@@ -3,10 +3,10 @@ import re
 from langchain_mistralai import ChatMistralAI
 from config import settings
 
-from state import ResearchState
+from graph.state import ResearchState
 from tools.scraper import scrape_multiple
 from tools.search import web_search
-from prompt import writer_prompt, critic_prompt
+from graph.prompt import writer_prompt, critic_prompt
 
 MAX_REVISIONS = 1
 

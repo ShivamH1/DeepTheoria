@@ -3,6 +3,8 @@ uvicorn[standard]
 sse-starlette
 pydantic-settings
 langgraph
+langgraph-checkpoint-postgres
+psycopg[binary]
 langchain-core
 langchain-mistralai
 asyncpg
