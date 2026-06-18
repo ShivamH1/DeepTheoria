@@ -1,47 +1,47 @@
-"use client"
+"use client";
 
-import { useCallback, useEffect, useState } from "react"
-import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { deleteHistoryItem, fetchHistory } from "@/lib/api"
-import type { HistoryItem } from "@/lib/types"
+import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { deleteHistoryItem, fetchHistory } from "@/lib/api";
+import type { HistoryItem } from "@/lib/types";
 
 export default function Sidebar() {
-  const pathname = usePathname()
-  const router = useRouter()
-  const [history, setHistory] = useState<HistoryItem[]>([])
-  const [loading, setLoading] = useState(true)
-  const [deletingId, setDeletingId] = useState<string | null>(null)
+  const pathname = usePathname();
+  const router = useRouter();
+  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const loadHistory = useCallback(() => {
     fetchHistory()
       .then(setHistory)
       .catch(() => {})
-      .finally(() => setLoading(false))
-  }, [])
+      .finally(() => setLoading(false));
+  }, []);
 
   useEffect(() => {
-    loadHistory()
-    window.addEventListener("research-complete", loadHistory)
-    return () => window.removeEventListener("research-complete", loadHistory)
-  }, [loadHistory])
+    loadHistory();
+    window.addEventListener("research-complete", loadHistory);
+    return () => window.removeEventListener("research-complete", loadHistory);
+  }, [loadHistory]);
 
   async function handleDelete(e: React.MouseEvent, id: string) {
-    e.preventDefault()
-    e.stopPropagation()
-    setDeletingId(id)
-    await deleteHistoryItem(id)
-    setHistory((prev) => prev.filter((item) => item.id !== id))
-    setDeletingId(null)
+    e.preventDefault();
+    e.stopPropagation();
+    setDeletingId(id);
+    await deleteHistoryItem(id);
+    setHistory((prev) => prev.filter((item) => item.id !== id));
+    setDeletingId(null);
     if (pathname === `/history/${id}`) {
-      router.push("/")
+      router.push("/");
     }
   }
 
   const activeId = pathname.startsWith("/history/")
     ? pathname.split("/history/")[1]
-    : null
+    : null;
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-64 flex flex-col bg-surface-cream border-r border-hairline z-40">
@@ -51,7 +51,9 @@ export default function Sidebar() {
           <h1 className="font-serif text-xl text-on-surface font-normal tracking-tight group-hover:text-primary transition-colors">
             DeepTheoria
           </h1>
-          <p className="text-[11px] text-on-surface-variant mt-0.5">Advanced Research Agent</p>
+          <p className="text-[11px] text-on-surface-variant mt-0.5">
+            Advanced Research Agent
+          </p>
         </Link>
       </div>
 
@@ -74,7 +76,10 @@ export default function Sidebar() {
         {loading && (
           <div className="space-y-1">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-8 rounded-lg bg-hairline animate-pulse" />
+              <div
+                key={i}
+                className="h-8 rounded-lg bg-hairline animate-pulse"
+              />
             ))}
           </div>
         )}
@@ -87,7 +92,7 @@ export default function Sidebar() {
 
         <nav className="space-y-0.5">
           {history.map((item) => {
-            const isActive = item.id === activeId
+            const isActive = item.id === activeId;
             return (
               <div key={item.id} className="group relative">
                 <Link
@@ -96,7 +101,7 @@ export default function Sidebar() {
                     "flex items-center pl-2 pr-7 py-2 rounded-lg text-[13px] leading-snug transition-all",
                     isActive
                       ? "bg-cream-deep text-primary font-medium"
-                      : "text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+                      : "text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface",
                   )}
                 >
                   <span className="truncate">{item.topic}</span>
@@ -107,13 +112,13 @@ export default function Sidebar() {
                   title="Delete"
                   className={cn(
                     "absolute right-1 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center rounded text-[15px] text-on-surface-variant hover:text-destructive hover:bg-surface-container transition-all opacity-0 group-hover:opacity-100",
-                    deletingId === item.id && "opacity-50 cursor-wait"
+                    deletingId === item.id && "opacity-50 cursor-wait",
                   )}
                 >
                   ×
                 </button>
               </div>
-            )
+            );
           })}
         </nav>
       </div>
@@ -121,5 +126,5 @@ export default function Sidebar() {
       {/* Sunset stripe */}
       <div className="sunset-stripe shrink-0" />
     </aside>
-  )
+  );
 }

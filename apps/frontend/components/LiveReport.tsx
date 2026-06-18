@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import ReactMarkdown from "react-markdown"
+import ReactMarkdown from "react-markdown";
 
 interface LiveReportProps {
-  content: string
-  isComplete: boolean   // true when writer done but critic still running
+  content: string;
+  isComplete: boolean; // true when writer done but critic still running
 }
 
 export default function LiveReport({ content, isComplete }: LiveReportProps) {
@@ -26,7 +26,9 @@ export default function LiveReport({ content, isComplete }: LiveReportProps) {
               </span>
             ) : (
               <span className="flex items-center gap-1.5 text-xs text-emerald-700 font-medium">
-                <span className="material-symbols-outlined text-[14px]">check_circle</span>
+                <span className="material-symbols-outlined text-[14px]">
+                  check_circle
+                </span>
                 Written — Evaluating
               </span>
             )}
@@ -42,5 +44,5 @@ export default function LiveReport({ content, isComplete }: LiveReportProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

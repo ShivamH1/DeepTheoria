@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 
 interface ResearchFormProps {
-  topic: string
-  setTopic: (val: string) => void
-  onSubmit: (topic: string) => void
-  isRunning: boolean
+  topic: string;
+  setTopic: (val: string) => void;
+  onSubmit: (topic: string) => void;
+  isRunning: boolean;
 }
 
 export default function ResearchForm({
@@ -16,10 +16,10 @@ export default function ResearchForm({
   isRunning,
 }: ResearchFormProps) {
   function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    const trimmed = topic.trim()
-    if (!trimmed || isRunning) return
-    onSubmit(trimmed)
+    e.preventDefault();
+    const trimmed = topic.trim();
+    if (!trimmed || isRunning) return;
+    onSubmit(trimmed);
   }
 
   return (
@@ -53,11 +53,12 @@ export default function ResearchForm({
         ) : (
           <>
             <span>Generate</span>
-            <span className="material-symbols-outlined text-[16px] leading-none">arrow_forward</span>
+            <span className="material-symbols-outlined text-[16px] leading-none">
+              arrow_forward
+            </span>
           </>
         )}
       </Button>
     </form>
-  )
+  );
 }
-

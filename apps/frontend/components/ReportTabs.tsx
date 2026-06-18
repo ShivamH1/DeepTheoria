@@ -1,61 +1,70 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import ReactMarkdown from "react-markdown"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import ScoreCard from "@/components/ScoreCard"
-import { parseFeedback } from "@/lib/parse-feedback"
-import type { ResearchResult } from "@/lib/types"
+import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import ScoreCard from "@/components/ScoreCard";
+import { parseFeedback } from "@/lib/parse-feedback";
+import type { ResearchResult } from "@/lib/types";
 
 interface ReportTabsProps {
-  result: ResearchResult
+  result: ResearchResult;
 }
 
 export default function ReportTabs({ result }: ReportTabsProps) {
-  const [copied, setCopied] = useState(false)
-  const feedback = parseFeedback(result.feedback)
+  const [copied, setCopied] = useState(false);
+  const feedback = parseFeedback(result.feedback);
 
   function downloadMd() {
-    const blob = new Blob([result.report], { type: "text/markdown" })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement("a")
-    a.href = url
-    a.download = `research_${result.topic.replace(/\s+/g, "_").toLowerCase()}.md`
-    a.click()
-    URL.revokeObjectURL(url)
+    const blob = new Blob([result.report], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `research_${result.topic.replace(/\s+/g, "_").toLowerCase()}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   function downloadJson() {
     const blob = new Blob([JSON.stringify(result, null, 2)], {
       type: "application/json",
-    })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement("a")
-    a.href = url
-    a.download = `pipeline_state_${result.topic.replace(/\s+/g, "_").toLowerCase()}.json`
-    a.click()
-    URL.revokeObjectURL(url)
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `pipeline_state_${result.topic.replace(/\s+/g, "_").toLowerCase()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   function copyReport() {
     navigator.clipboard.writeText(result.report).then(() => {
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    })
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
   }
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-10">
       <Tabs defaultValue="report">
         <TabsList className="bg-surface-container border border-hairline mb-6 rounded-lg">
-          <TabsTrigger value="report" className="data-[state=active]:bg-canvas data-[state=active]:text-primary">
+          <TabsTrigger
+            value="report"
+            className="data-[state=active]:bg-canvas data-[state=active]:text-primary"
+          >
             Research Report
           </TabsTrigger>
-          <TabsTrigger value="critique" className="data-[state=active]:bg-canvas data-[state=active]:text-primary">
+          <TabsTrigger
+            value="critique"
+            className="data-[state=active]:bg-canvas data-[state=active]:text-primary"
+          >
             Critique Evaluation
           </TabsTrigger>
-          <TabsTrigger value="raw" className="data-[state=active]:bg-canvas data-[state=active]:text-primary">
+          <TabsTrigger
+            value="raw"
+            className="data-[state=active]:bg-canvas data-[state=active]:text-primary"
+          >
             Raw Logs
           </TabsTrigger>
         </TabsList>
@@ -90,7 +99,9 @@ export default function ReportTabs({ result }: ReportTabsProps) {
                   onClick={downloadMd}
                   className="text-xs border-hairline h-8 px-3 text-on-surface-variant hover:text-on-surface flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
-                  <span className="material-symbols-outlined text-[15px] select-none">download</span>
+                  <span className="material-symbols-outlined text-[15px] select-none">
+                    download
+                  </span>
                   <span>Download .md</span>
                 </Button>
               </div>
@@ -102,7 +113,10 @@ export default function ReportTabs({ result }: ReportTabsProps) {
         </TabsContent>
 
         {/* ── CRITIQUE TAB ── */}
-        <TabsContent value="critique" className="outline-none focus:outline-none">
+        <TabsContent
+          value="critique"
+          className="outline-none focus:outline-none"
+        >
           <ScoreCard feedback={feedback} rawFeedback={result.feedback} />
         </TabsContent>
 
@@ -142,12 +156,14 @@ export default function ReportTabs({ result }: ReportTabsProps) {
               onClick={downloadJson}
               className="w-full border-hairline text-on-surface-variant hover:text-on-surface h-10 flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
             >
-              <span className="material-symbols-outlined text-[16px] select-none">download</span>
+              <span className="material-symbols-outlined text-[16px] select-none">
+                download
+              </span>
               <span>Export Full Pipeline State (.json)</span>
             </Button>
           </div>
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

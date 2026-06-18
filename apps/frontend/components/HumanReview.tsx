@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import type { ReviewState, ScrapedSource } from "@/lib/types"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import type { ReviewState, ScrapedSource } from "@/lib/types";
 
 interface HumanReviewProps {
-  review: ReviewState
-  onApprove: () => Promise<void>
+  review: ReviewState;
+  onApprove: () => Promise<void>;
 }
 
 function getDomain(url: string): string {
   try {
-    return new URL(url).hostname.replace(/^www\./, "")
+    return new URL(url).hostname.replace(/^www\./, "");
   } catch {
-    return url
+    return url;
   }
 }
 
@@ -23,7 +23,7 @@ function ScraperHUD({ sources }: { sources: ScrapedSource[] }) {
       <p className="text-xs text-on-surface-variant italic px-6 py-3">
         No source metadata available.
       </p>
-    )
+    );
   }
   return (
     <ul className="px-6 py-3 space-y-1.5">
@@ -55,25 +55,29 @@ function ScraperHUD({ sources }: { sources: ScrapedSource[] }) {
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
 export default function HumanReview({ review, onApprove }: HumanReviewProps) {
-  const [approving, setApproving] = useState(false)
+  const [approving, setApproving] = useState(false);
 
   async function handleApprove() {
-    setApproving(true)
-    await onApprove()
+    setApproving(true);
+    await onApprove();
   }
 
-  const successCount = review.scrapedSources.filter((s) => s.status === "success").length
+  const successCount = review.scrapedSources.filter(
+    (s) => s.status === "success",
+  ).length;
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-8">
       <div className="rounded-xl border border-outline-variant bg-cream-deep shadow-sm overflow-hidden">
         {/* Header */}
         <div className="px-6 py-4 border-b border-outline-variant flex items-start gap-3">
-          <span className="material-symbols-outlined text-primary mt-0.5">rate_review</span>
+          <span className="material-symbols-outlined text-primary mt-0.5">
+            rate_review
+          </span>
           <div>
             <p className="text-[10px] font-semibold text-primary uppercase tracking-widest mb-0.5">
               Human-in-the-Loop
@@ -82,7 +86,8 @@ export default function HumanReview({ review, onApprove }: HumanReviewProps) {
               Review Gathered Research
             </h3>
             <p className="text-sm text-on-surface-variant mt-0.5">
-              Inspect what the pipeline found before the Writer Agent generates the report.
+              Inspect what the pipeline found before the Writer Agent generates
+              the report.
             </p>
           </div>
         </div>
@@ -90,7 +95,9 @@ export default function HumanReview({ review, onApprove }: HumanReviewProps) {
         {/* Scraper Status HUD */}
         <div className="border-b border-hairline">
           <div className="px-6 py-2.5 flex items-center gap-2">
-            <span className="material-symbols-outlined text-[15px] text-primary">link</span>
+            <span className="material-symbols-outlined text-[15px] text-primary">
+              link
+            </span>
             <p className="text-[10px] font-semibold text-on-surface-variant uppercase tracking-widest">
               Scraped Sources
             </p>
@@ -106,7 +113,9 @@ export default function HumanReview({ review, onApprove }: HumanReviewProps) {
           <details className="group">
             <summary className="cursor-pointer px-6 py-3 flex items-center justify-between text-sm font-medium text-on-surface select-none hover:bg-surface-container-low transition-colors">
               <span className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px] text-primary">travel_explore</span>
+                <span className="material-symbols-outlined text-[16px] text-primary">
+                  travel_explore
+                </span>
                 Search Results
               </span>
               <span className="material-symbols-outlined text-[18px] text-on-surface-variant transition-transform group-open:rotate-180">
@@ -123,7 +132,9 @@ export default function HumanReview({ review, onApprove }: HumanReviewProps) {
           <details className="group">
             <summary className="cursor-pointer px-6 py-3 flex items-center justify-between text-sm font-medium text-on-surface select-none hover:bg-surface-container-low transition-colors">
               <span className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[16px] text-primary">content_paste_search</span>
+                <span className="material-symbols-outlined text-[16px] text-primary">
+                  content_paste_search
+                </span>
                 Combined Scraped Content ({successCount} sources)
               </span>
               <span className="material-symbols-outlined text-[18px] text-on-surface-variant transition-transform group-open:rotate-180">
@@ -141,7 +152,8 @@ export default function HumanReview({ review, onApprove }: HumanReviewProps) {
         {/* Approve CTA */}
         <div className="px-6 py-4 bg-canvas border-t border-hairline flex items-center justify-between gap-4">
           <p className="text-xs text-on-surface-variant">
-            The Writer Agent will use only the content above to generate your report.
+            The Writer Agent will use only the content above to generate your
+            report.
           </p>
           <Button
             onClick={handleApprove}
@@ -155,7 +167,9 @@ export default function HumanReview({ review, onApprove }: HumanReviewProps) {
               </span>
             ) : (
               <span className="flex items-center gap-1.5">
-                <span className="material-symbols-outlined text-[16px]">edit_note</span>
+                <span className="material-symbols-outlined text-[16px]">
+                  edit_note
+                </span>
                 Approve &amp; Generate Report
               </span>
             )}
@@ -163,5 +177,5 @@ export default function HumanReview({ review, onApprove }: HumanReviewProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

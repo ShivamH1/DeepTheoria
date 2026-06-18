@@ -1,28 +1,28 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import ReportTabs from "@/components/ReportTabs"
-import { fetchHistoryItem } from "@/lib/api"
-import type { ResearchResult } from "@/lib/types"
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import ReportTabs from "@/components/ReportTabs";
+import { fetchHistoryItem } from "@/lib/api";
+import type { ResearchResult } from "@/lib/types";
 
 export default function HistoryDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }) {
-  const [result, setResult] = useState<ResearchResult | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [result, setResult] = useState<ResearchResult | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     params.then(({ id }) =>
       fetchHistoryItem(id)
         .then(setResult)
         .catch(() => setError("Research session not found."))
-        .finally(() => setLoading(false))
-    )
-  }, [params])
+        .finally(() => setLoading(false)),
+    );
+  }, [params]);
 
   return (
     <div className="min-h-screen px-6 py-10 md:px-10 bg-background">
@@ -71,6 +71,5 @@ export default function HistoryDetailPage({
         {result && <ReportTabs result={result} />}
       </div>
     </div>
-  )
+  );
 }
-

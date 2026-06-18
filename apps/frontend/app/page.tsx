@@ -1,62 +1,67 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useSSEResearch } from "@/lib/api"
-import ResearchForm from "@/components/ResearchForm"
-import PipelineProgress from "@/components/PipelineProgress"
-import HumanReview from "@/components/HumanReview"
-import LiveReport from "@/components/LiveReport"
-import ReportTabs from "@/components/ReportTabs"
+import { useState } from "react";
+import { useSSEResearch } from "@/lib/api";
+import ResearchForm from "@/components/ResearchForm";
+import PipelineProgress from "@/components/PipelineProgress";
+import HumanReview from "@/components/HumanReview";
+import LiveReport from "@/components/LiveReport";
+import ReportTabs from "@/components/ReportTabs";
 
 const SUGGESTIONS = [
   {
     title: "Solid-state battery progress",
-    query: "Latest progress in solid-state battery technology and commercialization timelines",
+    query:
+      "Latest progress in solid-state battery technology and commercialization timelines",
     icon: "battery_charging_full",
-    description: "Explore energy density and major developer roadmaps."
+    description: "Explore energy density and major developer roadmaps.",
   },
   {
     title: "Llama 3 vs GPT-4o",
-    query: "Comparative analysis of Llama 3 and GPT-4o capabilities and open-source impact",
+    query:
+      "Comparative analysis of Llama 3 and GPT-4o capabilities and open-source impact",
     icon: "compare_arrows",
-    description: "Analyze benchmarks, fine-tuning potential, and efficiency."
+    description: "Analyze benchmarks, fine-tuning potential, and efficiency.",
   },
   {
     title: "CRISPR gene therapy approvals",
-    query: "Recent FDA approvals and clinical trials for CRISPR gene therapy in 2026",
+    query:
+      "Recent FDA approvals and clinical trials for CRISPR gene therapy in 2026",
     icon: "health_and_safety",
-    description: "Investigate treatment pipelines and regulatory updates."
+    description: "Investigate treatment pipelines and regulatory updates.",
   },
   {
     title: "Quantum computing qubits",
-    query: "Current breakthroughs in quantum computing qubits stability and error correction",
+    query:
+      "Current breakthroughs in quantum computing qubits stability and error correction",
     icon: "insights",
-    description: "Look into superconducting qubits and physical error mitigation."
-  }
-]
+    description:
+      "Look into superconducting qubits and physical error mitigation.",
+  },
+];
 
 const PIPELINE_STEPS = [
   {
     name: "Web Search",
     desc: "Compile and rank high-authority sources via Tavily.",
-    icon: "travel_explore"
+    icon: "travel_explore",
   },
   {
     name: "Page Scraper",
     desc: "Extract raw content and clean text from pages.",
-    icon: "html"
+    icon: "html",
   },
   {
     name: "Writer Agent",
     desc: "Synthesize facts and draft the report in Markdown.",
-    icon: "edit_note"
+    icon: "edit_note",
   },
   {
     name: "Critic Agent",
     desc: "Grade quality and trigger automated revisions.",
-    icon: "fact_check"
-  }
-]
+    icon: "fact_check",
+  },
+];
 
 export default function HomePage() {
   const {
@@ -69,14 +74,14 @@ export default function HomePage() {
     error,
     startResearch,
     approveResearch,
-  } = useSSEResearch()
+  } = useSSEResearch();
 
-  const [topic, setTopic] = useState("")
+  const [topic, setTopic] = useState("");
 
-  const showProgress = isRunning || currentPhase !== 0 || !!awaitingReview
+  const showProgress = isRunning || currentPhase !== 0 || !!awaitingReview;
 
   function handleSelectSuggestion(query: string) {
-    setTopic(query)
+    setTopic(query);
   }
 
   return (
@@ -85,12 +90,13 @@ export default function HomePage() {
         {/* Hero */}
         <div className="text-center mb-10 max-w-2xl mx-auto mt-4">
           <h2 className="font-serif text-4xl md:text-5xl text-on-surface font-normal tracking-tight mb-4 leading-tight">
-            Frontier Intelligence.<br />
+            Frontier Intelligence.
+            <br />
             <span className="text-primary">In your hands.</span>
           </h2>
           <p className="text-on-surface-variant text-base max-w-xl mx-auto leading-relaxed opacity-90">
-            Multi-agent pipeline that searches the web, scrapes sources, drafts a
-            report, and critiques it — automatically.
+            Multi-agent pipeline that searches the web, scrapes sources, drafts
+            a report, and critiques it — automatically.
           </p>
         </div>
 
@@ -127,10 +133,7 @@ export default function HomePage() {
 
         {/* Live report — visible while writer is typing and while critic evaluates */}
         {liveReport && !result && (
-          <LiveReport
-            content={liveReport}
-            isComplete={currentPhase === 4}
-          />
+          <LiveReport content={liveReport} isComplete={currentPhase === 4} />
         )}
 
         {/* Final results — replaces live report once research is complete */}
@@ -139,7 +142,6 @@ export default function HomePage() {
         {/* Redesigned Empty State / Dashboard Dashboard */}
         {!showProgress && !result && !error && (
           <div className="mt-14 max-w-4xl mx-auto space-y-12 animate-in fade-in duration-500">
-            
             {/* Clickable Prompt Suggestions */}
             <div>
               <p className="text-[10px] font-semibold text-on-surface-variant uppercase tracking-widest text-center mb-5">
@@ -201,11 +203,10 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-
           </div>
         )}
       </div>
-      
+
       {/* Footer */}
       {!showProgress && !result && !error && (
         <div className="mt-16 text-center text-[11px] text-on-surface-variant/50 shrink-0">
@@ -213,5 +214,5 @@ export default function HomePage() {
         </div>
       )}
     </div>
-  )
+  );
 }
