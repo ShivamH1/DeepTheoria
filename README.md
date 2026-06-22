@@ -24,7 +24,7 @@ graph TD
     GatherGraph -->|2b. Reader Node| Scraper[BeautifulSoup4 Scraper]
     GatherGraph -->|3. Interrupt & Await Review| HITL[Awaiting Review State]
     HITL -->|4. Stream gathered resources to UI| Client
-    Client -->|5. Approve /api/research/approve/{id}| API
+    Client -->|"5. Approve /api/research/approve/{id}"| API
     API -->|6. Resume Execution| WriterNode[Writer Node]
     WriterNode -->|6a. Write draft & stream tokens| Mistral[Mistral AI]
     WriterNode -->|7. Critique Node| CriticNode[Critic Node]
