@@ -35,11 +35,6 @@ Here is the step-by-step visual workflow of the DeepTheoria application in actio
 | ![5. Critique Evaluation](apps/frontend/public/screenshots/critique.png) |
 | *Displays the critique feedback, quality scores, and grading details from the Critic Agent.* |
 
-| **6. Persistent Research History (Archive detail)** |
-|:---:|
-| ![6. History detail](apps/frontend/public/screenshots/history.png) |
-| *Enables reviewing previous research reports, logs, and scorecards directly from the Postgres-backed sidebar.* |
-
 ---
 
 ## 🏗️ Architecture & Pipeline
