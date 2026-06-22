@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     MISTRAL_MODEL: str
     TAVILY_API_KEY: str
     DATABASE_URL: str
+    CORS_ORIGINS: str = "http://localhost:3000"
 
     model_config = SettingsConfigDict(
         env_file=find_dotenv() or ".env", env_file_encoding="utf-8", extra="ignore"
