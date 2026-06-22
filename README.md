@@ -6,6 +6,42 @@ The user interface follows a premium, warm editorial design system inspired by M
 
 ---
 
+## 📷 Application Walkthrough & UI Gallery
+
+Here is the step-by-step visual workflow of the DeepTheoria application in action:
+
+| **1. Research Console (Landing Page)** |
+|:---:|
+| ![1. Research Console](apps/frontend/public/screenshots/landing.png) |
+| *Features prompt suggestions and the multi-agent pipeline overview in the Warm Sunset editorial theme.* |
+
+| **2. Live Pipeline Progress (Processing Stage)** |
+|:---:|
+| ![2. Live Progress](apps/frontend/public/screenshots/processing.png) |
+| *Visual status indicators track the active agents as they search the web and scrape sources in real time.* |
+
+| **3. Human-in-the-Loop Review (Interrupt State)** |
+|:---:|
+| ![3. Human-in-the-Loop Review](apps/frontend/public/screenshots/human_review.png) |
+| *The execution flow pauses, presenting scraped metadata and characters. The user reviews and clicks "Approve" to run the writer.* |
+
+| **4. Live Token-Streaming Report (Results)** |
+|:---:|
+| ![4. Research Report](apps/frontend/public/screenshots/results.png) |
+| *Renders the generated report live using rich serif typography and clean markdown presentation.* |
+
+| **5. Automated Critique & Scorecard** |
+|:---:|
+| ![5. Critique Evaluation](apps/frontend/public/screenshots/critique.png) |
+| *Displays the critique feedback, quality scores, and grading details from the Critic Agent.* |
+
+| **6. Persistent Research History (Archive detail)** |
+|:---:|
+| ![6. History detail](apps/frontend/public/screenshots/history.png) |
+| *Enables reviewing previous research reports, logs, and scorecards directly from the Postgres-backed sidebar.* |
+
+---
+
 ## 🏗️ Architecture & Pipeline
 
 ### Visual Diagrams
