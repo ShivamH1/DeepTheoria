@@ -32,8 +32,9 @@ export function useSSEResearch() {
     setError(null);
     setIsRunning(true);
 
+    const base = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
     const es = new EventSource(
-      `/api/research/stream?topic=${encodeURIComponent(topic)}`,
+      `${base}/api/research/stream?topic=${encodeURIComponent(topic)}`,
     );
     esRef.current = es;
 
@@ -98,7 +99,8 @@ export function useSSEResearch() {
 
   const approveResearch = useCallback(async () => {
     if (!awaitingReview) return;
-    await fetch(`/api/research/approve/${awaitingReview.threadId}`, {
+    const base = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
+    await fetch(`${base}/api/research/approve/${awaitingReview.threadId}`, {
       method: "POST",
     });
     setCurrentPhase(3); // writer is next
@@ -118,18 +120,20 @@ export function useSSEResearch() {
   };
 }
 
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
+
 export async function fetchHistory(): Promise<HistoryItem[]> {
-  const res = await fetch("/api/history");
+  const res = await fetch(`${backendUrl}/api/history`);
   if (!res.ok) throw new Error("Failed to fetch history");
   return res.json();
 }
 
 export async function fetchHistoryItem(id: string): Promise<ResearchResult> {
-  const res = await fetch(`/api/history/${id}`);
+  const res = await fetch(`${backendUrl}/api/history/${id}`);
   if (!res.ok) throw new Error("Not found");
   return res.json();
 }
 
 export async function deleteHistoryItem(id: string): Promise<void> {
-  await fetch(`/api/history/${id}`, { method: "DELETE" });
+  await fetch(`${backendUrl}/api/history/${id}`, { method: "DELETE" });
 }
