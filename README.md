@@ -6,6 +6,36 @@ The user interface follows a premium, warm editorial design system inspired by M
 
 ---
 
+## 🏗️ Architecture & Pipeline
+
+### Visual Diagrams
+
+|                      Architecture Map                      |
+| :--------------------------------------------------------: |
+| ![Architecture Map](apps/frontend/public/Architecture.png) |
+
+#### Research Flow & Execution Pipeline
+
+```mermaid
+graph TD
+    Client[Next.js Frontend] -->|1. Start topic stream /api/research/stream| API[FastAPI Server]
+    API -->|2. Run Graph| GatherGraph[Research Graph]
+    GatherGraph -->|2a. Search Node| Tavily[Tavily Search API]
+    GatherGraph -->|2b. Reader Node| Scraper[BeautifulSoup4 Scraper]
+    GatherGraph -->|3. Interrupt & Await Review| HITL[Awaiting Review State]
+    HITL -->|4. Stream gathered resources to UI| Client
+    Client -->|"5. Approve /api/research/approve/{id}"| API
+    API -->|6. Resume Execution| WriterNode[Writer Node]
+    WriterNode -->|6a. Write draft & stream tokens| Mistral[Mistral AI]
+    WriterNode -->|7. Critique Node| CriticNode[Critic Node]
+    CriticNode -->|7a. Evaluate & score| ScoreCheck{Score < 6 & revision < MAX?}
+    ScoreCheck -->|Yes: Revise| WriterNode
+    ScoreCheck -->|No: Finish| SaveDB[Save to Postgres]
+    SaveDB -->|8. Stream completion done| Client
+```
+
+---
+
 ## 📷 Application Walkthrough & UI Gallery
 
 Here is the step-by-step visual workflow of the DeepTheoria application in action:
@@ -34,36 +64,6 @@ Here is the step-by-step visual workflow of the DeepTheoria application in actio
 |:---:|
 | ![5. Critique Evaluation](apps/frontend/public/screenshots/critique.png) |
 | *Displays the critique feedback, quality scores, and grading details from the Critic Agent.* |
-
----
-
-## 🏗️ Architecture & Pipeline
-
-### Visual Diagrams
-
-|                      Architecture Map                      |
-| :--------------------------------------------------------: |
-| ![Architecture Map](apps/frontend/public/Architecture.png) |
-
-#### Research Flow & Execution Pipeline
-
-```mermaid
-graph TD
-    Client[Next.js Frontend] -->|1. Start topic stream /api/research/stream| API[FastAPI Server]
-    API -->|2. Run Graph| GatherGraph[Research Graph]
-    GatherGraph -->|2a. Search Node| Tavily[Tavily Search API]
-    GatherGraph -->|2b. Reader Node| Scraper[BeautifulSoup4 Scraper]
-    GatherGraph -->|3. Interrupt & Await Review| HITL[Awaiting Review State]
-    HITL -->|4. Stream gathered resources to UI| Client
-    Client -->|"5. Approve /api/research/approve/{id}"| API
-    API -->|6. Resume Execution| WriterNode[Writer Node]
-    WriterNode -->|6a. Write draft & stream tokens| Mistral[Mistral AI]
-    WriterNode -->|7. Critique Node| CriticNode[Critic Node]
-    CriticNode -->|7a. Evaluate & score| ScoreCheck{Score < 6 & revision < MAX?}
-    ScoreCheck -->|Yes: Revise| WriterNode
-    ScoreCheck -->|No: Finish| SaveDB[Save to Postgres]
-    SaveDB -->|8. Stream completion done| Client
-```
 
 ---
 
